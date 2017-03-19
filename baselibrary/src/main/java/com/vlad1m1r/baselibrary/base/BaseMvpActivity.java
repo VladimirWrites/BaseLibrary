@@ -52,8 +52,8 @@ public abstract class BaseMvpActivity<P extends IBasePresenter, F extends BaseFr
 
     public void setupToolbar(boolean homeAsUp, Toolbar toolbar) {
         setSupportActionBar(toolbar);
-        toolbar.setBackgroundColor(ContextCompat.getColor(this, getColorFromAttr(this, R.attr.colorPrimary)));
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, getColorFromAttr(this, R.attr.titleTextColor)));
+        toolbar.setBackgroundColor(getColorFromAttr(this, R.attr.colorPrimary));
+        toolbar.setTitleTextColor(getColorFromAttr(this, R.attr.titleTextColor));
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUp);
     }
