@@ -1,16 +1,13 @@
 package com.vlad1m1r.baselibrary.base;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.MenuItem;
 
 import com.vlad1m1r.baselibrary.R;
@@ -52,8 +49,6 @@ public abstract class BaseMvpActivity<P extends IBasePresenter, F extends BaseFr
 
     public void setupToolbar(boolean homeAsUp, Toolbar toolbar) {
         setSupportActionBar(toolbar);
-        toolbar.setBackgroundColor(getColorFromAttr(this, R.attr.colorPrimary));
-        toolbar.setTitleTextColor(getColorFromAttr(this, R.attr.titleTextColor));
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUp);
     }
@@ -98,16 +93,5 @@ public abstract class BaseMvpActivity<P extends IBasePresenter, F extends BaseFr
     protected abstract F getFragment();
 
     protected abstract P getPresenter(F fragment);
-
-    private static int getColorFromAttr(Context context, int attrRes) {
-
-        TypedValue typedValue = new TypedValue();
-
-        TypedArray a = context.obtainStyledAttributes(typedValue.data, new int[]{attrRes});
-        int color = a.getColor(0, 0);
-
-        a.recycle();
-
-        return color;
-    }
+    
 }
