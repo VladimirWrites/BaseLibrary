@@ -2,6 +2,8 @@ package com.vlad1m1r.baselibrary.dagger.components;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 
 import com.vlad1m1r.baselibrary.base.BaseActivity;
 import com.vlad1m1r.baselibrary.dagger.modules.AppModule;
@@ -29,4 +31,6 @@ public interface DataComponent {
     StoreUtils getStoreUtils();
     LocaleUtils getLocaleUtils();
     Context getContext();
+    Resources getResources();
+    SharedPreferences getSharedPreferences();
 }

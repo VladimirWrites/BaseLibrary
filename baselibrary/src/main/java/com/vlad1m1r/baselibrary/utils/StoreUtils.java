@@ -18,7 +18,6 @@ public class StoreUtils {
     private static final String KEY_FIRST_TIME = "first_time";
 
     private final SharedPreferences mPreferences;
-    private SharedPreferences.Editor mEditPreferences;
     private final Context mContext;
 
     public StoreUtils(@NonNull Context context, @NonNull SharedPreferences preferences) {
