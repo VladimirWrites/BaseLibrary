@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BaseLibrarySample</string>
+    <string name="base_library_sample__hello_world">Base Library Sample sends greetings to the world!</string>
+</resources>

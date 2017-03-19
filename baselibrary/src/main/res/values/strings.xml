@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BaseLibrary</string>
+
+    <string name="action__share_via">Share using</string>
+    <string name="action__call_number">Call</string>
+
+    <string name="language__english">English</string>
+    <string name="language__serbian">Serbian</string>
+
+</resources>

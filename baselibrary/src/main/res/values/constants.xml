@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_english_code" translatable="false">en</string>
+    <string name="settings_serbian_code" translatable="false">sr</string>
+</resources>
