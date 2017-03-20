@@ -37,6 +37,9 @@ public class LanguageDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLanguage = getArguments().getString(KEY_LANGUAGE);
+        if(savedInstanceState != null) {
+            mLanguage = savedInstanceState.getString(KEY_LANGUAGE);
+        }
     }
 
     @NonNull
@@ -91,5 +94,11 @@ public class LanguageDialogFragment extends DialogFragment {
     public void onDetach() {
         mListener = null;
         super.onDetach();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_LANGUAGE, mLanguage);
     }
 }
