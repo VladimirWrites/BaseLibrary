@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">BaseLibrary</string>
+
+    <string name="action__share_via">Share using</string>
+    <string name="action__call_number">Call</string>
+
+    <string name="language__english">Engleski</string>
+    <string name="language__serbian">Srpski</string>
+    <string name="language__croatian">Hrvatski</string>
+
+
+    <string name="language__screen_name">Jezik</string>
+    <string name="language_dialog__title">Izaberite jezik</string>
+    <string name="language_dialog__ok">Potvrdi</string>
+    <string name="language_dialog__cancel">Otkaži</string>
+
+</resources>

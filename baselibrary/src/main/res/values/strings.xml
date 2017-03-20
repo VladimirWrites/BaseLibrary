@@ -6,5 +6,11 @@
 
     <string name="language__english">English</string>
     <string name="language__serbian">Serbian</string>
+    <string name="language__croatian">Croatian</string>
+
+    <string name="language__screen_name">Language</string>
+    <string name="language_dialog__title">Choose language</string>
+    <string name="language_dialog__ok">OK</string>
+    <string name="language_dialog__cancel">Cancel</string>
 
 </resources>

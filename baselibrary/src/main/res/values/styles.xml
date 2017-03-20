@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="BaseAlertDialog">
+        <item name="colorAccent">?colorPrimary</item>
+    </style>
+
+</resources>
