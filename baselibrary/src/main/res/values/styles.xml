@@ -2,6 +2,7 @@
 
     <style name="BaseAlertDialog">
         <item name="colorAccent">?colorPrimary</item>
+        <item name="android:textColorPrimary">?android:textColorSecondary</item>
     </style>
 
 </resources>
