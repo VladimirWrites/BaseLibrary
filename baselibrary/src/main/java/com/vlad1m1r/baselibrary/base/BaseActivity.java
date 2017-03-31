@@ -14,7 +14,7 @@ import javax.inject.Inject;
  * Created by vladimirjovanovic on 3/17/17.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected FirebaseAnalytics mFirebaseAnalytics;
 

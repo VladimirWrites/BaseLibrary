@@ -1,7 +1,7 @@
 package com.vlad1m1r.baselibrary.utils;
 
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
 import com.vlad1m1r.baselibrary.R;
@@ -18,28 +18,28 @@ public class StoreUtils {
     private static final String KEY_FIRST_TIME = "first_time";
 
     private final SharedPreferences mPreferences;
-    private final Context mContext;
+    private final Resources mResources;
 
-    public StoreUtils(@NonNull Context context, @NonNull SharedPreferences preferences) {
+    public StoreUtils(@NonNull Resources resources, @NonNull SharedPreferences preferences) {
         this.mPreferences = preferences;
-        this.mContext = context;
+        this.mResources = resources;
+    }
+
+
+    public String getDefaultLanguage() {
+        String defaultLanguage = Locale.getDefault().getLanguage();
+        final String[] languageCodes = mResources.getStringArray(R.array.language_codes);
+        for (String languageCode : languageCodes) {
+            if (defaultLanguage.contains(languageCode)) {
+                return languageCode;
+            }
+        }
+        return  "en";
     }
 
     @NonNull
     public String getLanguageCode() {
-        String defaultLanguage = Locale.getDefault().getLanguage();
-        final String[] languageCodes = mContext.getResources().getStringArray(R.array.language_codes);
-        boolean isInside = false;
-        for (String languageCode : languageCodes) {
-            if (defaultLanguage.contains(languageCode)) {
-                defaultLanguage = languageCode;
-                isInside = true;
-            }
-        }
-        if (!isInside) defaultLanguage = "en";
-
-
-        return this.mPreferences.getString(KEY_LANGUAGE_CODE, defaultLanguage);
+        return this.mPreferences.getString(KEY_LANGUAGE_CODE, getDefaultLanguage());
     }
 
     public void setLanguageCode(@NonNull String languageCode) {

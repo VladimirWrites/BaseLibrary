@@ -34,8 +34,8 @@ public class DataModule {
 
     @Provides
     @Singleton
-    StoreUtils provideStoreUtils(Context context, SharedPreferences sharedPreferences) {
-        return new StoreUtils(context, sharedPreferences);
+    StoreUtils provideStoreUtils(Resources resources, SharedPreferences sharedPreferences) {
+        return new StoreUtils(resources, sharedPreferences);
     }
 
     @Provides

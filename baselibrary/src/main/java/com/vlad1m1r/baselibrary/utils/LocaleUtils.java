@@ -32,15 +32,6 @@ public class LocaleUtils {
         else return conf.locale;
     }
 
-    public static Locale getLocale(Resources resources) {
-
-        // Change locale settings in the app.
-        android.content.res.Configuration conf = resources.getConfiguration();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) return conf.getLocales().get(0);
-        else return conf.locale;
-    }
-
     public void setLanguage(String language) {
         DisplayMetrics dm = mResources.getDisplayMetrics();
         android.content.res.Configuration conf = mResources.getConfiguration();

@@ -24,7 +24,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    supportLibVersion = '25.3.0'  // variables that can be referenced to keeps libs consistent
+    supportLibVersion = '25.3.1'  // variables that can be referenced to keeps libs consistent
     playServicesLibVersion = '10.2.0'
     firebaseLibVersion = '10.2.0'
     gsonVersion = '2.8.0'
