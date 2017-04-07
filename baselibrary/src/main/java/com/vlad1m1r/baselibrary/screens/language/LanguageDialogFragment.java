@@ -21,7 +21,7 @@ public class LanguageDialogFragment extends DialogFragment {
 
     public String language;
 
-    private ILanguageChanged mListener;
+    private ILanguageChanged listener;
 
     public static LanguageDialogFragment newInstance(String language) {
         LanguageDialogFragment f = new LanguageDialogFragment();
@@ -61,7 +61,7 @@ public class LanguageDialogFragment extends DialogFragment {
         builder.setPositiveButton(R.string.language_dialog__ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (mListener != null) mListener.onLanguageChanged(language);
+                if (listener != null) listener.onLanguageChanged(language);
             }
         });
 
@@ -87,12 +87,12 @@ public class LanguageDialogFragment extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mListener = (ILanguageChanged) context;
+        listener = (ILanguageChanged) context;
     }
 
     @Override
     public void onDetach() {
-        mListener = null;
+        listener = null;
         super.onDetach();
     }
 
