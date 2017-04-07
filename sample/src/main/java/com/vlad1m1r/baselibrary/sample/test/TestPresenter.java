@@ -2,10 +2,10 @@ package com.vlad1m1r.baselibrary.sample.test;
 
 public class TestPresenter implements TestContract.Presenter {
 
-    private TestContract.View mView;
+    private TestContract.View view;
 
     public TestPresenter(TestContract.View view) {
-        this.mView = view;
+        this.view = view;
     }
 
     @Override

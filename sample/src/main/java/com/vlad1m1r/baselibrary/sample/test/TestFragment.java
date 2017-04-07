@@ -19,7 +19,7 @@ public class TestFragment extends BaseFragment<TestContract.Presenter, FragmentT
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_test, container, false);
-        mBinding = FragmentTestBinding.bind(view);
+        this.binding = FragmentTestBinding.bind(view);
 
         return view;
     }

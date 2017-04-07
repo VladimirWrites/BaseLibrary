@@ -11,39 +11,39 @@ import java.util.Locale;
  */
 public class LocaleUtils {
 
-    private Resources mResources;
-    private final StoreUtils mStoreUtils;
+    private Resources resources;
+    private final StoreUtils storeUtils;
 
     public LocaleUtils(Resources resources, StoreUtils storeUtils) {
-        mResources = resources;
-        mStoreUtils = storeUtils;
+        this.resources = resources;
+        this.storeUtils = storeUtils;
     }
 
     public String getLanguage() {
-        return mStoreUtils.getLanguageCode();
+        return storeUtils.getLanguageCode();
     }
 
     public Locale getLocale() {
 
         // Change locale settings in the app.
-        android.content.res.Configuration conf = mResources.getConfiguration();
+        android.content.res.Configuration conf = resources.getConfiguration();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) return conf.getLocales().get(0);
         else return conf.locale;
     }
 
     public void setLanguage(String language) {
-        DisplayMetrics dm = mResources.getDisplayMetrics();
-        android.content.res.Configuration conf = mResources.getConfiguration();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        android.content.res.Configuration conf = resources.getConfiguration();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             conf.setLocale(new Locale(language));
         else conf.locale = new Locale(language);
-        mResources.updateConfiguration(conf, dm);
-        mStoreUtils.setLanguageCode(language);
+        this.resources.updateConfiguration(conf, dm);
+        this.storeUtils.setLanguageCode(language);
     }
 
     public void setResources(Resources resources) {
-        mResources = resources;
-        setLanguage(mStoreUtils.getLanguageCode());
+        this.resources = resources;
+        setLanguage(storeUtils.getLanguageCode());
     }
 }

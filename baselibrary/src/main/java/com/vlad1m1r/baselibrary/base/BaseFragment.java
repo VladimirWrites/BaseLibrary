@@ -26,32 +26,32 @@ public abstract class BaseFragment<P extends IBasePresenter, B extends ViewDataB
         void refreshFragment();
     }
 
-    protected P mPresenter;
-    protected B mBinding;
+    protected P presenter;
+    protected B binding;
 
 
-    protected IFragmentHolder mFragmentHolder;
+    protected IFragmentHolder fragmentHolder;
 
-    protected FirebaseAnalytics mFirebaseAnalytics;
+    protected FirebaseAnalytics firebaseAnalytics;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFirebaseAnalytics = getInstance(getContext());
+        firebaseAnalytics = getInstance(getContext());
         this.setRetainInstance(retainInstance());
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mFragmentHolder = (IFragmentHolder) context;
+        fragmentHolder = (IFragmentHolder) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mFragmentHolder = null;
+        fragmentHolder = null;
     }
 
     @Override
@@ -71,7 +71,7 @@ public abstract class BaseFragment<P extends IBasePresenter, B extends ViewDataB
     }
 
     protected IBasePresenter getPresenter() {
-        return mPresenter;
+        return presenter;
     }
 
 }

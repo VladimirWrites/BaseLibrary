@@ -8,30 +8,30 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 public abstract class EndlessScrollListener extends RecyclerView.OnScrollListener {
     public static String TAG = EndlessScrollListener.class.getSimpleName();
 
-    private int mPreviousTotal = 0; // The total number of items in the dataset after the last load
-    private boolean mLoading = true; // True if we are still waiting for the last set of data to load.
-    private int mVisibleThreshold = 5; // The minimum amount of items to have below your current scroll position before mLoading more.
-    private int mFirstVisibleItem, mVisibleItemCount, mTotalItemCount;
+    private int previousTotal = 0; // The total number of items in the dataset after the last load
+    private boolean loading = true; // True if we are still waiting for the last set of data to load.
+    private int visibleThreshold = 5; // The minimum amount of items to have below your current scroll position before loading more.
+    private int firstVisibleItem, visibleItemCount, totalItemCount;
 
-    private int mStartPageNumber = 0;
-    private int mCurrentPage = 0;
+    private int startPageNumber = 0;
+    private int currentPage = 0;
 
-    private int mScrollPosition = 0;
+    private int scrollPosition = 0;
 
-    private LinearLayoutManager mLinearLayoutManager;
-    private GridLayoutManager mGridLayoutManager;
-    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
+    private GridLayoutManager gridLayoutManager;
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
-    private int[] mSpanArray;
+    private int[] spanArray;
 
     public EndlessScrollListener(RecyclerView.LayoutManager layoutManager) {
         if (layoutManager instanceof GridLayoutManager) {
-            this.mGridLayoutManager = (GridLayoutManager) layoutManager;
+            this.gridLayoutManager = (GridLayoutManager) layoutManager;
         } else if (layoutManager instanceof LinearLayoutManager) {
-            this.mLinearLayoutManager = (LinearLayoutManager) layoutManager;
+            this.linearLayoutManager = (LinearLayoutManager) layoutManager;
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-            this.mStaggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
-            mSpanArray = new int[mStaggeredGridLayoutManager.getSpanCount()];
+            this.staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
+            spanArray = new int[staggeredGridLayoutManager.getSpanCount()];
         } else {
             throw new IllegalArgumentException("Selected LayoutManager has not supported");
         }
@@ -41,57 +41,57 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-        mVisibleItemCount = recyclerView.getChildCount();
+        visibleItemCount = recyclerView.getChildCount();
 
-        if (mLinearLayoutManager != null) {
-            mTotalItemCount = mLinearLayoutManager.getItemCount();
-            mFirstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
-        } else if (mGridLayoutManager != null) {
-            mTotalItemCount = mGridLayoutManager.getItemCount();
-            mFirstVisibleItem = mGridLayoutManager.findFirstVisibleItemPosition();
-        } else if (mStaggeredGridLayoutManager != null) {
-            mTotalItemCount = mStaggeredGridLayoutManager.getItemCount();
-            mFirstVisibleItem = mStaggeredGridLayoutManager.findFirstVisibleItemPositions(mSpanArray)[0];
+        if (linearLayoutManager != null) {
+            totalItemCount = linearLayoutManager.getItemCount();
+            firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+        } else if (gridLayoutManager != null) {
+            totalItemCount = gridLayoutManager.getItemCount();
+            firstVisibleItem = gridLayoutManager.findFirstVisibleItemPosition();
+        } else if (staggeredGridLayoutManager != null) {
+            totalItemCount = staggeredGridLayoutManager.getItemCount();
+            firstVisibleItem = staggeredGridLayoutManager.findFirstVisibleItemPositions(spanArray)[0];
         }
 
-        mScrollPosition = recyclerView.computeVerticalScrollOffset();
-        onScroll(mFirstVisibleItem, dy, mScrollPosition);
+        scrollPosition = recyclerView.computeVerticalScrollOffset();
+        onScroll(firstVisibleItem, dy, scrollPosition);
 
-        if (mLoading) {
-            if (mTotalItemCount > mPreviousTotal) {
-                mLoading = false;
-                mPreviousTotal = mTotalItemCount;
+        if (loading) {
+            if (totalItemCount > previousTotal) {
+                loading = false;
+                previousTotal = totalItemCount;
             }
         }
-        if (!mLoading && (mTotalItemCount - mVisibleItemCount)
-                <= (mFirstVisibleItem + mVisibleThreshold)) {
+        if (!loading && (totalItemCount - visibleItemCount)
+                <= (firstVisibleItem + visibleThreshold)) {
             // End has been reached
 
             // Do something
-            mCurrentPage++;
+            currentPage++;
 
-            onLoadMore(mCurrentPage, mTotalItemCount);
+            onLoadMore(currentPage, totalItemCount);
 
-            mLoading = true;
+            loading = true;
         }
     }
 
     public void reset() {
-        mCurrentPage = mStartPageNumber;
-        this.mPreviousTotal = 0;
-        this.mLoading = true;
+        currentPage = startPageNumber;
+        this.previousTotal = 0;
+        this.loading = true;
     }
 
     public int getCurrentPage() {
-        return mCurrentPage;
+        return currentPage;
     }
 
     public void setCurrentPage(int currentPage) {
-        this.mCurrentPage = currentPage;
+        this.currentPage = currentPage;
     }
 
     public void setStartPageNumber(int startPageNumber, boolean restart) {
-        this.mStartPageNumber = startPageNumber;
+        this.startPageNumber = startPageNumber;
         if (restart)
             reset();
     }

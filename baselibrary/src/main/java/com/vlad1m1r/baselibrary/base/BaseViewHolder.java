@@ -11,14 +11,14 @@ import android.view.View;
 
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
-    protected final ViewDataBinding mBinding;
+    protected final ViewDataBinding binding;
 
     public BaseViewHolder(View itemView) {
         super(itemView);
-        mBinding = DataBindingUtil.bind(itemView);
+        binding = DataBindingUtil.bind(itemView);
     }
 
     public ViewDataBinding getBinding() {
-        return mBinding;
+        return binding;
     }
 }

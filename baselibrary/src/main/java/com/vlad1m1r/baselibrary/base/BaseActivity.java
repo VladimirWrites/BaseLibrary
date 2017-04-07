@@ -16,17 +16,17 @@ import javax.inject.Inject;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected FirebaseAnalytics mFirebaseAnalytics;
+    protected FirebaseAnalytics firebaseAnalytics;
 
     @Inject
-    protected LocaleUtils mLocaleUtils;
+    protected LocaleUtils localeUtils;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         DaggerLibWrapper.getDataComponent().inject(this);
-        mLocaleUtils.setResources(getResources());
+        localeUtils.setResources(getResources());
     }
 }

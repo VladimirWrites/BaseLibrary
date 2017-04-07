@@ -10,19 +10,19 @@ import java.util.ArrayList;
 
 public abstract class BaseAdapter<T extends RecyclerView.ViewHolder, H> extends RecyclerView.Adapter<T> {
 
-    protected ArrayList<H> mList;
+    protected ArrayList<H> list;
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return list.size();
     }
 
     public ArrayList<H> getList() {
-        return mList;
+        return list;
     }
 
     public void setList(ArrayList<H> list) {
-        this.mList = list;
+        this.list = list;
         notifyDataSetChanged();
     }
 }

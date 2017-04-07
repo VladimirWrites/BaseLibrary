@@ -19,7 +19,7 @@ public class LanguageDialogFragment extends DialogFragment {
 
     public static final String KEY_LANGUAGE = "language";
 
-    public String mLanguage;
+    public String language;
 
     private ILanguageChanged mListener;
 
@@ -36,9 +36,9 @@ public class LanguageDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mLanguage = getArguments().getString(KEY_LANGUAGE);
+        language = getArguments().getString(KEY_LANGUAGE);
         if(savedInstanceState != null) {
-            mLanguage = savedInstanceState.getString(KEY_LANGUAGE);
+            language = savedInstanceState.getString(KEY_LANGUAGE);
         }
     }
 
@@ -51,17 +51,17 @@ public class LanguageDialogFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.BaseAlertDialog));
         builder.setTitle(R.string.language_dialog__title);
-        builder.setSingleChoiceItems(languages, getPositionInArray(codes, mLanguage), new DialogInterface.OnClickListener() {
+        builder.setSingleChoiceItems(languages, getPositionInArray(codes, language), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mLanguage = codes[which];
+                language = codes[which];
             }
         });
 
         builder.setPositiveButton(R.string.language_dialog__ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (mListener != null) mListener.onLanguageChanged(mLanguage);
+                if (mListener != null) mListener.onLanguageChanged(language);
             }
         });
 
@@ -99,6 +99,6 @@ public class LanguageDialogFragment extends DialogFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(KEY_LANGUAGE, mLanguage);
+        outState.putString(KEY_LANGUAGE, language);
     }
 }

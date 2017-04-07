@@ -13,15 +13,15 @@ import com.vlad1m1r.baselibrary.dagger.components.DaggerDataComponent;
 
 public class DaggerLibWrapper {
 
-    private static DataComponent sDataComponent;
+    private static DataComponent dataComponent;
 
     public static DataComponent getDataComponent() {
-        return sDataComponent;
+        return dataComponent;
     }
 
     public static void initComponent (Application application) {
 
-        sDataComponent = DaggerDataComponent.builder()
+        dataComponent = DaggerDataComponent.builder()
                 // list of modules that are part of this component need to be created here too
                 .appModule(new AppModule(application)) // This also corresponds to the name of your module: %component_name%Module
                 .dataModule(new DataModule())

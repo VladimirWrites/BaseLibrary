@@ -20,14 +20,14 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 public abstract class BaseMvpActivity<P extends IBasePresenter, F extends BaseFragment> extends BaseActivity implements BaseFragment.IFragmentHolder {
 
-    protected P mPresenter;
-    protected ActivityBaseBinding mBinding;
+    protected P presenter;
+    protected ActivityBaseBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mBinding = DataBindingUtil.setContentView(this, getLayoutId() == 0 ? R.layout.activity_base : getLayoutId());
+        binding = DataBindingUtil.setContentView(this, getLayoutId() == 0 ? R.layout.activity_base : getLayoutId());
 
         F fragment = (F) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);
@@ -41,9 +41,9 @@ public abstract class BaseMvpActivity<P extends IBasePresenter, F extends BaseFr
         }
 
         if (fragment.getPresenter() != null) {
-            mPresenter = (P) fragment.getPresenter();
+            presenter = (P) fragment.getPresenter();
         } else {
-            mPresenter = getPresenter(fragment);
+            presenter = getPresenter(fragment);
         }
     }
 
