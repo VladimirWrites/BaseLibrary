@@ -34,7 +34,7 @@ public class StoreUtils {
                 return languageCode;
             }
         }
-        return  "en";
+        return  resources.getStringArray(R.array.language_codes)[0];
     }
 
     @NonNull
