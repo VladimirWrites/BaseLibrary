@@ -20,33 +20,34 @@ public class ActionUtils {
         CALL,
         SHARE,
         EXTERNAL,
-        PLAY_STORE
+        PLAY_STORE,
+        VIBER
     }
 
-    public static void doAction(@NonNull final Context context, @NonNull String mainData) {
-        if (mainData.startsWith("mailto:")) {
-            mainData = mainData.replaceAll("mailto:", "");
+    public static void doAction(@NonNull final Context context, @NonNull String data) {
+        if (data.startsWith("mailto:")) {
+            data = data.replaceAll("mailto:", "");
 
-            if (Patterns.EMAIL_ADDRESS.matcher(mainData).matches()) {
-                doAction(context, ActionType.EMAIL, mainData);
+            if (Patterns.EMAIL_ADDRESS.matcher(data).matches()) {
+                doAction(context, ActionType.EMAIL, data);
             }
 
-        } else if (Patterns.EMAIL_ADDRESS.matcher(mainData).matches()) {
-            doAction(context, ActionType.EMAIL, mainData);
-        } else if (Patterns.WEB_URL.matcher(mainData).matches()) {
-            doAction(context, ActionType.WEB, mainData);
-        } else if (Patterns.PHONE.matcher(mainData).matches()) {
-            doAction(context, ActionType.CALL, mainData);
+        } else if (Patterns.EMAIL_ADDRESS.matcher(data).matches()) {
+            doAction(context, ActionType.EMAIL, data);
+        } else if (Patterns.WEB_URL.matcher(data).matches()) {
+            doAction(context, ActionType.WEB, data);
+        } else if (Patterns.PHONE.matcher(data).matches()) {
+            doAction(context, ActionType.CALL, data);
         }
     }
 
-    public static void doAction(Context context, ActionType type, String mainData) {
+    public static void doAction(Context context, ActionType type, String data) {
         switch (type) {
             case WEB: {
-                if (mainData.startsWith("www")) {
-                    mainData = "http://" + mainData;
+                if (data.startsWith("www")) {
+                    data = "http://" + data;
                 }
-                if (Patterns.WEB_URL.matcher(mainData).matches()) {
+                if (Patterns.WEB_URL.matcher(data).matches()) {
 
 //                    CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
 //
@@ -69,19 +70,19 @@ public class ActionUtils {
                 break;
             }
             case EMAIL: { //email
-                if (Patterns.EMAIL_ADDRESS.matcher(mainData).matches()
-                        || (mainData.startsWith("mailto:") && Patterns.EMAIL_ADDRESS.matcher(mainData.substring(7)).matches())) {
+                if (Patterns.EMAIL_ADDRESS.matcher(data).matches()
+                        || (data.startsWith("mailto:") && Patterns.EMAIL_ADDRESS.matcher(data.substring(7)).matches())) {
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("message/rfc822");
-                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{mainData});
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{data});
                     context.startActivity(Intent.createChooser(intent, ""));
                 }
                 break;
             }
             case CALL: { //phone
-                if (Patterns.PHONE.matcher(mainData).matches()) {
+                if (Patterns.PHONE.matcher(data).matches()) {
                     Intent i = new Intent(Intent.ACTION_DIAL);
-                    i.setData(Uri.parse("tel:" + mainData));
+                    i.setData(Uri.parse("tel:" + data));
                     context.startActivity(Intent.createChooser(i, context.getResources().getString(R.string.action__call_number)));
                 }
                 break;
@@ -89,22 +90,30 @@ public class ActionUtils {
             case SHARE: {
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, mainData);
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, data);
                 context.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.action__share_via)));
                 break;
             }
             case EXTERNAL: {
-                if (Patterns.WEB_URL.matcher(mainData).matches()) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mainData));
+                if (Patterns.WEB_URL.matcher(data).matches()) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data));
                     context.startActivity(browserIntent);
                 }
                 break;
             }
             case PLAY_STORE: {
-                if (mainData.startsWith("market:")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mainData));
+                if (data.startsWith("market:")) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data));
                     context.startActivity(browserIntent);
                 }
+                break;
+            }
+            case VIBER: {
+                Uri uri = Uri.parse("tel:" + Uri.encode(data));
+                Intent intent = new Intent("android.intent.action.VIEW");
+                intent.setClassName("com.viber.voip", "com.viber.voip.WelcomeActivity");
+                intent.setData(uri);
+                context.startActivity(intent);
                 break;
             }
             default: {
