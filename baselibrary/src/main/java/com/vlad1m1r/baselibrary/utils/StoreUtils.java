@@ -61,7 +61,7 @@ public class StoreUtils {
     }
 
     public boolean isFirstTime() {
-        isFirstTime(null);
+        return isFirstTime(null);
     }
 
     public void setFirstTime(String event, boolean isFirstTime) {
