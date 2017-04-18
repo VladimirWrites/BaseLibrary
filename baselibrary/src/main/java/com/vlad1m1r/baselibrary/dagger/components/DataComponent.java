@@ -9,6 +9,7 @@ import com.vlad1m1r.baselibrary.base.BaseActivity;
 import com.vlad1m1r.baselibrary.dagger.modules.AppModule;
 import com.vlad1m1r.baselibrary.dagger.modules.DataModule;
 import com.vlad1m1r.baselibrary.utils.LocaleUtils;
+import com.vlad1m1r.baselibrary.utils.NetworkUtils;
 import com.vlad1m1r.baselibrary.utils.StoreUtils;
 
 import javax.inject.Singleton;
@@ -33,4 +34,5 @@ public interface DataComponent {
     Context getContext();
     Resources getResources();
     SharedPreferences getSharedPreferences();
+    NetworkUtils getNetworkUtils();
 }

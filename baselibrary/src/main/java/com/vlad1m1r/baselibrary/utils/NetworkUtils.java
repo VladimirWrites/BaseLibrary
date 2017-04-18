@@ -10,24 +10,29 @@ import android.net.NetworkInfo;
  */
 public class NetworkUtils {
 
-    public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo ni = cm.getActiveNetworkInfo();
+    private final Context context;
+
+    public NetworkUtils(Context context) {
+        this.context = context.getApplicationContext();
+    }
+
+    public boolean isNetworkConnected() {
+        NetworkInfo ni = getNetworkInfo();
         return !(ni == null);
     }
 
-    public static boolean isConnectedWifi(Context context) {
-        NetworkInfo info = NetworkUtils.getNetworkInfo(context);
+    public boolean isConnectedWifi() {
+        NetworkInfo info = getNetworkInfo();
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI);
     }
 
-    public static boolean isConnectedMobile(Context context) {
-        NetworkInfo info = NetworkUtils.getNetworkInfo(context);
+    public boolean isConnectedMobile() {
+        NetworkInfo info = getNetworkInfo();
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_MOBILE);
     }
 
-    public static NetworkInfo getNetworkInfo(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    protected NetworkInfo getNetworkInfo() {
+        ConnectivityManager cm = (ConnectivityManager) this.context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo();
     }
 }

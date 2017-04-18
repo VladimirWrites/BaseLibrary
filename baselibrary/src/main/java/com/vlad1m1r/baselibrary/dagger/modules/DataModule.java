@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
 import com.vlad1m1r.baselibrary.utils.LocaleUtils;
+import com.vlad1m1r.baselibrary.utils.NetworkUtils;
 import com.vlad1m1r.baselibrary.utils.StoreUtils;
 
 import javax.inject.Singleton;
@@ -42,5 +43,11 @@ public class DataModule {
     @Singleton
     LocaleUtils provideLocaleUtils(Resources resources, StoreUtils storeUtils) {
         return new LocaleUtils(resources, storeUtils);
+    }
+
+    @Provides
+    @Singleton
+    NetworkUtils provideNetworkUtils(Context context) {
+        return new NetworkUtils(context);
     }
 }

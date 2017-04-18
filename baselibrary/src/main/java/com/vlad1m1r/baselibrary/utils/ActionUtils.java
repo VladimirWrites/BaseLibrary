@@ -109,11 +109,13 @@ public class ActionUtils {
                 break;
             }
             case VIBER: {
-                Uri uri = Uri.parse("tel:" + Uri.encode(data));
-                Intent intent = new Intent("android.intent.action.VIEW");
-                intent.setClassName("com.viber.voip", "com.viber.voip.WelcomeActivity");
-                intent.setData(uri);
-                context.startActivity(intent);
+                if (Patterns.PHONE.matcher(data).matches()) {
+                    Uri uri = Uri.parse("tel:" + Uri.encode(data));
+                    Intent intent = new Intent("android.intent.action.VIEW");
+                    intent.setClassName("com.viber.voip", "com.viber.voip.WelcomeActivity");
+                    intent.setData(uri);
+                    context.startActivity(intent);
+                }
                 break;
             }
             default: {
