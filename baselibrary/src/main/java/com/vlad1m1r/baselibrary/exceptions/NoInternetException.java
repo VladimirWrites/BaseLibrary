@@ -14,23 +14,14 @@
  * limitations under the License.
  */
 
-package com.vlad1m1r.baselibrary.sample.test;
+package com.vlad1m1r.baselibrary.exceptions;
 
-public class TestPresenter implements TestContract.Presenter {
-
-    private TestContract.View view;
-
-    public TestPresenter(TestContract.View view) {
-        this.view = view;
-    }
-
-    @Override
-    public void onStart() {
+public class NoInternetException extends Throwable {
+    public NoInternetException() {
 
     }
 
-    @Override
-    public void onDestroy() {
-
+    public NoInternetException(String message) {
+        super(message);
     }
 }

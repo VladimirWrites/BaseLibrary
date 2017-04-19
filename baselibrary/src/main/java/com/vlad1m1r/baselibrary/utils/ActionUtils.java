@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Vladimir Jovanovic
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.vlad1m1r.baselibrary.utils;
 
 import android.content.Context;
@@ -8,10 +24,9 @@ import android.util.Patterns;
 
 import com.vlad1m1r.baselibrary.R;
 
+import static android.R.attr.data;
 
-/**
- * Created by vladimirjovanovic on 10/21/15.
- */
+
 public class ActionUtils {
 
     public enum ActionType {
@@ -43,32 +58,6 @@ public class ActionUtils {
 
     public static void doAction(Context context, ActionType type, String data) {
         switch (type) {
-            case WEB: {
-                if (data.startsWith("www")) {
-                    data = "http://" + data;
-                }
-                if (Patterns.WEB_URL.matcher(data).matches()) {
-
-//                    CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
-//
-//                    intentBuilder.setToolbarColor(context.getResources().getColor(R.color.color_primary));
-//                    intentBuilder.setShowTitle(true);
-//                    intentBuilder.setStartAnimations(context,
-//                            R.anim.push_left_in, R.anim.fadeout);
-//                    intentBuilder.setExitAnimations(context,
-//                            R.anim.fadein, R.anim.push_right_out);
-//
-//
-//                    Bitmap mCloseButtonBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_navigation_arrow_back);
-//                    intentBuilder.setCloseButtonIcon(mCloseButtonBitmap);
-//
-//                    Uri uri = Uri.parse(mainData);
-//
-//                    CustomTabActivityHelper.openCustomTab(context, intentBuilder.build(), uri, null);
-
-                }
-                break;
-            }
             case EMAIL: { //email
                 if (Patterns.EMAIL_ADDRESS.matcher(data).matches()
                         || (data.startsWith("mailto:") && Patterns.EMAIL_ADDRESS.matcher(data.substring(7)).matches())) {
@@ -95,6 +84,9 @@ public class ActionUtils {
                 break;
             }
             case EXTERNAL: {
+                if (data.startsWith("www")) {
+                    data = "http://" + data;
+                }
                 if (Patterns.WEB_URL.matcher(data).matches()) {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data));
                     context.startActivity(browserIntent);
@@ -122,5 +114,13 @@ public class ActionUtils {
 
             }
         }
+    }
+
+    public static void shareDataFromApp(@NonNull final Context context, @NonNull String data, String subject) {
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, data);
+        if(subject != null) sharingIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        context.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.action__share_via)));
     }
 }
