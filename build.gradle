@@ -22,7 +22,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'com.android.tools.build:gradle:2.3.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -41,11 +41,11 @@ task clean(type: Delete) {
 
 ext {
     supportLibVersion = '25.3.1'  // variables that can be referenced to keeps libs consistent
-    playServicesLibVersion = '10.2.0'
-    firebaseLibVersion = '10.2.0'
+    playServicesLibVersion = '10.2.6'
+    firebaseLibVersion = '10.2.6'
     gsonVersion = '2.8.0'
-    calligraphyVersion = '2.2.0'
-    daggerVersion = '2.9'
+    calligraphyVersion = '2.3.0'
+    daggerVersion = '2.10'
     rxAndroidVersion = '2.0.1'
-    rxJavaVersion = '2.0.7'
+    rxJavaVersion = '2.1.0'
 }
