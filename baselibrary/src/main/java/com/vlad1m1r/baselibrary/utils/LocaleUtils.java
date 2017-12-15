@@ -22,14 +22,16 @@ import android.util.DisplayMetrics;
 
 import java.util.Locale;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class LocaleUtils {
 
     private Resources resources;
     private final StoreUtils storeUtils;
 
     public LocaleUtils(Resources resources, StoreUtils storeUtils) {
-        this.resources = resources;
-        this.storeUtils = storeUtils;
+        this.resources = checkNotNull(resources);
+        this.storeUtils = checkNotNull(storeUtils);
     }
 
     public String getLanguage() {
@@ -46,6 +48,7 @@ public class LocaleUtils {
     }
 
     public void setLanguage(String language) {
+        checkNotNull(language);
         DisplayMetrics dm = resources.getDisplayMetrics();
         android.content.res.Configuration conf = resources.getConfiguration();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -56,7 +59,7 @@ public class LocaleUtils {
     }
 
     public void setResources(Resources resources) {
-        this.resources = resources;
+        this.resources = checkNotNull(resources);
         setLanguage(storeUtils.getLanguageCode());
     }
 }

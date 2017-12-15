@@ -21,13 +21,15 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
     protected final ViewDataBinding binding;
 
     public BaseViewHolder(View itemView) {
         super(itemView);
-        binding = DataBindingUtil.bind(itemView);
+        binding = DataBindingUtil.bind(checkNotNull(itemView));
     }
 
     public ViewDataBinding getBinding() {

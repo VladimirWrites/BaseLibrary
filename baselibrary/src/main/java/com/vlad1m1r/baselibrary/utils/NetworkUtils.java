@@ -20,29 +20,29 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class NetworkUtils {
 
     private final Context context;
 
     public NetworkUtils(Context context) {
-        this.context = context.getApplicationContext();
+        this.context = checkNotNull(context).getApplicationContext();
     }
 
     public boolean isNetworkConnected() {
-        NetworkInfo ni = getNetworkInfo();
-        return !(ni == null);
+        NetworkInfo networkInfo = getNetworkInfo();
+        return !(networkInfo == null);
     }
 
     public boolean isConnectedWifi() {
-        NetworkInfo info = getNetworkInfo();
-        return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI);
+        NetworkInfo networkInfo = getNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected() && networkInfo.getType() == ConnectivityManager.TYPE_WIFI);
     }
 
     public boolean isConnectedMobile() {
-        NetworkInfo info = getNetworkInfo();
-        return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo networkInfo = getNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected() && networkInfo.getType() == ConnectivityManager.TYPE_MOBILE);
     }
 
     protected NetworkInfo getNetworkInfo() {

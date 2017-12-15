@@ -27,6 +27,8 @@ import android.view.ContextThemeWrapper;
 
 import com.vlad1m1r.baselibrary.R;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class LanguageDialogFragment extends DialogFragment {
 
     public static final String KEY_LANGUAGE = "language";
@@ -36,13 +38,13 @@ public class LanguageDialogFragment extends DialogFragment {
     private ILanguageChanged listener;
 
     public static LanguageDialogFragment newInstance(String language) {
-        LanguageDialogFragment f = new LanguageDialogFragment();
+        LanguageDialogFragment fragment = new LanguageDialogFragment();
 
         Bundle args = new Bundle();
-        args.putString(KEY_LANGUAGE, language);
-        f.setArguments(args);
+        args.putString(KEY_LANGUAGE, checkNotNull(language));
+        fragment.setArguments(args);
 
-        return f;
+        return fragment;
     }
 
     @Override

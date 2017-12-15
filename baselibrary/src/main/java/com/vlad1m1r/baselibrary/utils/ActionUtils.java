@@ -19,12 +19,11 @@ package com.vlad1m1r.baselibrary.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.util.Patterns;
 
 import com.vlad1m1r.baselibrary.R;
 
-import static android.R.attr.data;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 
 public class ActionUtils {
@@ -39,7 +38,10 @@ public class ActionUtils {
         VIBER
     }
 
-    public static void doAction(@NonNull final Context context, @NonNull String data) {
+    public static void doAction(final Context context, String data) {
+        checkNotNull(context);
+        checkNotNull(data);
+
         if (data.startsWith("mailto:")) {
             data = data.replaceAll("mailto:", "");
 
@@ -57,6 +59,10 @@ public class ActionUtils {
     }
 
     public static void doAction(Context context, ActionType type, String data) {
+        checkNotNull(context);
+        checkNotNull(type);
+        checkNotNull(data);
+
         switch (type) {
             case EMAIL: { //email
                 if (Patterns.EMAIL_ADDRESS.matcher(data).matches()
@@ -111,12 +117,15 @@ public class ActionUtils {
                 break;
             }
             default: {
-
+                throw new IllegalArgumentException("Used unsupported argument " + type.name());
             }
         }
     }
 
-    public static void shareDataFromApp(@NonNull final Context context, @NonNull String data, String subject) {
+    public static void shareDataFromApp(final Context context, String data, String subject) {
+        checkNotNull(context);
+        checkNotNull(data);
+
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(Intent.EXTRA_TEXT, data);

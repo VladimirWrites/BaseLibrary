@@ -20,6 +20,8 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public abstract class BaseAdapter<T extends RecyclerView.ViewHolder, H> extends RecyclerView.Adapter<T> {
 
     protected ArrayList<H> list;
@@ -34,6 +36,7 @@ public abstract class BaseAdapter<T extends RecyclerView.ViewHolder, H> extends 
     }
 
     public void setList(ArrayList<H> list) {
+        checkNotNull(list);
         this.list = list;
         notifyDataSetChanged();
     }

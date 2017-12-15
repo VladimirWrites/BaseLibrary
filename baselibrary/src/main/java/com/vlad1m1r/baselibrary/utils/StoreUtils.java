@@ -25,7 +25,7 @@ import com.vlad1m1r.baselibrary.R;
 
 import java.util.Locale;
 
-import static android.text.TextUtils.concat;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class StoreUtils {
 
@@ -36,11 +36,10 @@ public class StoreUtils {
     protected final SharedPreferences preferences;
     protected final Resources resources;
 
-    public StoreUtils(@NonNull Resources resources, @NonNull SharedPreferences preferences) {
-        this.preferences = preferences;
-        this.resources = resources;
+    public StoreUtils(Resources resources, SharedPreferences preferences) {
+        this.preferences = checkNotNull(preferences);
+        this.resources = checkNotNull(resources);
     }
-
 
     public String getDefaultLanguage() {
         String defaultLanguage = Locale.getDefault().getLanguage();
@@ -58,7 +57,8 @@ public class StoreUtils {
         return this.preferences.getString(KEY_LANGUAGE_CODE, getDefaultLanguage());
     }
 
-    public void setLanguageCode(@NonNull String languageCode) {
+    public void setLanguageCode(String languageCode) {
+        checkNotNull(languageCode);
         SharedPreferences.Editor editPreferences = this.preferences.edit();
         editPreferences.putString(KEY_LANGUAGE_CODE, languageCode);
         editPreferences.apply();
